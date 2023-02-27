@@ -1,0 +1,8 @@
+name: HomeEssentials
+version: 1.0
+main: net.philocraft.HomeEssentials
+api-version: 1.19
+authors: [ LittleBigOwl ]
+description: A simple, customizable home plugin
+website: littlebigowl.dev
+prefix: HomeEssentials
