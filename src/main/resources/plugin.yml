@@ -6,3 +6,41 @@ authors: [ LittleBigOwl ]
 description: A simple, customizable home plugin
 website: littlebigowl.dev
 prefix: HomeEssentials
+
+commands:
+  home:
+    usage: /<command> [homeName]
+    description: Teleports to a home
+    permission: philocraft.homes.home
+  
+  homes:
+    usage: /<command>
+    decription: Shows all your homes
+    permission: philocraft.homes.homes
+
+  sethome:
+    usage: /<command> [homeName]
+    description: Creates a home
+    permission: philocraft.homes.sethome
+
+  delhome:
+    usage: /<command> [homeName]
+    description: Deletes a home
+    permission: philocraft.homes.delhome
+
+permissions:
+    philocraft.homes.home:
+      description: Allows home command
+      default: true
+
+    philocraft.homes.homes:
+      description: Allows homes command
+      default: true
+
+    philocraft.homes.sethome:
+      description: Allows sethome command
+      default: true
+
+    philocraft.homes.delhome:
+      description: Allows delhome command
+      default: true

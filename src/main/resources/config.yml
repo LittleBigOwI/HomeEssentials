@@ -1,0 +1,6 @@
+database:
+  host: [DatabaseHost]
+  database: [DatabaseName]
+  user: [Username]
+  password: [UserPassword]
+
