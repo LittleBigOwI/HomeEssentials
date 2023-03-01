@@ -55,13 +55,9 @@ public class Database {
         return database;
     }
 
-    public void loadHomes() throws SQLException {
+    public int createStatement(String sql) throws SQLException {
         this.resetConnection();
-
-        int homeCount = 0;
-
-        this.homeEssentials.getLogger().info("Loaded " + homeCount + " homes.");
-        return;
+        return this.connection.createStatement().executeUpdate(sql);
     }
 
 }

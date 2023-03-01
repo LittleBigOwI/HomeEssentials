@@ -2,6 +2,7 @@ package net.philocraft;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.philocraft.commands.SethomeCommand;
 import net.philocraft.models.Database;
 
 public final class HomeEssentials extends JavaPlugin {
@@ -15,13 +16,16 @@ public final class HomeEssentials extends JavaPlugin {
     @Override
     public void onEnable() {
         database = Database.init(this);
+
+        //!REGISTER COMMANDS
+        this.getCommand("sethome").setExecutor(new SethomeCommand());
         
-        this.getLogger().info("Hello World!");
+        this.getLogger().info("Plugin loaded");
     }
 
     @Override
     public void onDisable() {
-        this.getLogger().info("Bye World!");
+        this.getLogger().info("Plugin unloaded");
     }
 
 }
