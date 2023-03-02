@@ -16,10 +16,10 @@ public class Database {
     private String password;
 
     private Connection connection;
-    private HomeEssentials homeEssentials;
+    private HomeEssentials plugin;
 
-    private Database(HomeEssentials homeEssentials, String host, String database, String user, String password) throws ClassNotFoundException, SQLException {
-        this.homeEssentials = homeEssentials;
+    private Database(HomeEssentials plugin, String host, String database, String user, String password) throws ClassNotFoundException, SQLException {
+        this.plugin = plugin;
         this.host = host;
         this.database = database;
         this.user = user;

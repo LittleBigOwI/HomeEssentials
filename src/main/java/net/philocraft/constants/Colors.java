@@ -6,9 +6,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public enum Colors {
     
-    SUCCESS(Color.decode("#77dd77")),
-    FAILURE(Color.decode("#ff6961")),
-    WARNING(Color.decode("#ddb877"));
+    SUCCESS(Color.decode("#6fed66")),
+    FAILURE(Color.decode("#ed6666")),
+    WARNING(Color.decode("#f2e055")),
+    DETAIL(Color.decode("#66bced")),
+    OBFUSCATE(Color.decode("#858585"));
 
     private Color color;
 

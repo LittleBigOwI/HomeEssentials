@@ -76,7 +76,7 @@ public class Home {
                 "z=" + location.getZ() + ", " +
                 "yaw=" + location.getYaw() + ", " +
                 "pitch=" + location.getPitch() + " " +
-                "WHERE uuid='" + this.uuid + "'' " +
+                "WHERE uuid='" + this.uuid + "' " +
                 "AND name='" + this.name + "';"
             );
         } catch (SQLException e) {
