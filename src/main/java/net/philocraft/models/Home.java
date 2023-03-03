@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import net.philocraft.HomeEssentials;
 import net.philocraft.utils.Worlds;
@@ -91,6 +92,23 @@ public class Home {
             location.getYaw(),
             location.getPitch()
         );
+    }
+
+    public static ArrayList<String> getHomeNames(Player player) {
+        UUID uuid = player.getUniqueId();
+        ArrayList<Home> playerHomes = homes.get(uuid);
+        
+        if(playerHomes == null) {
+            homes.put(uuid, new ArrayList<Home>());
+            playerHomes = homes.get(uuid);
+        }
+
+        ArrayList<String> homeNames = new ArrayList<>();
+        for(Home home : playerHomes) {
+            homeNames.add(home.getName());
+        }
+
+        return homeNames;
     }
 
     public static Home getHome(UUID uuid, String name) {

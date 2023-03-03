@@ -2,18 +2,18 @@ package net.philocraft.errors;
 
 import org.bukkit.command.CommandSender;
 
-import net.md_5.bungee.api.ChatColor;
+import net.philocraft.constants.Colors;
 
 public class InvalidSenderException {
     
     private String cause;
 
     public InvalidSenderException() {
-        this.cause = ChatColor.RED + "Invalid sender type.";
+        this.cause = Colors.FAILURE.getChatColor() + "Invalid sender type.";
     }
 
     public InvalidSenderException(String cause) {
-        this.cause = ChatColor.RED + cause;
+        this.cause = Colors.FAILURE.getChatColor() + cause;
     }
 
     public boolean sendCause(CommandSender sender) {

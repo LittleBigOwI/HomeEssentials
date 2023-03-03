@@ -37,11 +37,15 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             return new InvalidArgumentsException("Home names can't contain \\, ' or \" characters.").sendCause(sender);
         }
 
+        if(Home.getHomeNames(player).contains(name)) {
+            return new InvalidArgumentsException("You already have a home with that name.").sendCause(sender);
+        }
+
         Home home = Home.getHome(player.getUniqueId(), name);
         if(home != null && args.length == 2) {
             if(args[1].equals("override")) {
                 home.setLocation(location);
-                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully overridden your " + Colors.DETAIL.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully overridden your " + Colors.COMMON.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
             } else if(args[1].equals("cancel")) {
                 player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully canceled override.");
@@ -60,7 +64,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             
         } else {
             home = new Home(player.getUniqueId(), name, location);
-            player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.DETAIL.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+            player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.COMMON.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
         }
         return true;

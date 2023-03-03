@@ -36,7 +36,7 @@ public class WarningComponent {
             if(i%2 == 0) {
                 message[i].setColor(Colors.WARNING.getChatColor());
             } else {
-                message[i].setColor(Colors.DETAIL.getChatColor());
+                message[i].setColor(Colors.COMMON.getChatColor());
             }
         }
 

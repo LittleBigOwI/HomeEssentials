@@ -9,7 +9,8 @@ public enum Colors {
     SUCCESS(Color.decode("#6fed66")),
     FAILURE(Color.decode("#ed6666")),
     WARNING(Color.decode("#f2e055")),
-    DETAIL(Color.decode("#66bced")),
+    COMMON(Color.decode("#66bced")),
+    HIGHTLIGHT(Color.decode("#463be3")),
     OBFUSCATE(Color.decode("#858585"));
 
     private Color color;
