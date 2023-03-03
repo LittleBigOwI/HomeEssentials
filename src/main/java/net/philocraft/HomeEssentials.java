@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.philocraft.commands.DelhomeCommand;
 import net.philocraft.commands.HomeCommand;
 import net.philocraft.commands.HomesCommand;
 import net.philocraft.commands.SethomeCommand;
@@ -28,6 +29,7 @@ public final class HomeEssentials extends JavaPlugin {
         }
 
         //!REGISTER COMMANDS
+        this.getCommand("delhome").setExecutor(new DelhomeCommand());
         this.getCommand("home").setExecutor(new HomeCommand());
         this.getCommand("homes").setExecutor(new HomesCommand());
         this.getCommand("sethome").setExecutor(new SethomeCommand());

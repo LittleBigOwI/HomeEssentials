@@ -42,6 +42,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
         }
 
         Home home = Home.getHome(player.getUniqueId(), name);
+        
         if(home != null && args.length == 2) {
             if(args[1].equals("override")) {
                 home.setLocation(location);

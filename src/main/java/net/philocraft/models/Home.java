@@ -138,4 +138,24 @@ public class Home {
         player.teleport(this.location);
     }
 
+    public void delete() {
+        try {
+            HomeEssentials.getDatabase().updateStatement(
+                "DELETE FROM Homes WHERE " +
+                "uuid='" + this.uuid + "' AND " +
+                "name ='" + this.name + "';"
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Home> playerHomes = Home.homes.get(this.uuid);
+        for(int i = 0; i < playerHomes.size(); i++) {
+            if(playerHomes.get(i).getName().equals(this.name)) {
+                playerHomes.remove(i);
+            }
+        }
+
+    }
+
 }
