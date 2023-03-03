@@ -1,4 +1,4 @@
-package net.philocraft.utils;
+package net.philocraft.constants;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;

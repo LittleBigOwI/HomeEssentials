@@ -6,11 +6,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import net.philocraft.HomeEssentials;
-import net.philocraft.utils.Worlds;
+import net.philocraft.constants.Worlds;
 
 public class Home {
 
@@ -20,23 +21,7 @@ public class Home {
     private String name;
     private Location location;
 
-    public Home(UUID uuid, String name, Location location) {
-        
-        //!SQL Injections are not possible here because the name of a Home object can't contain a space  
-        try {
-            HomeEssentials.getDatabase().createStatement(
-                "INSERT INTO Homes(uuid, name, x, y, z, yaw, pitch) VALUES('" + 
-                uuid + "', '" + 
-                name + "', " +
-                location.getX() + ", " +
-                location.getY() + ", " +
-                location.getZ() + ", " +
-                location.getYaw() + ", " +
-                location.getPitch() + ");"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public Home(UUID uuid, String name, Location location, boolean insert) {
 
         this.uuid = uuid;
         this.name = name;
@@ -49,49 +34,26 @@ public class Home {
             location.getPitch()
         );
 
-        if(homes.containsKey(uuid) && homes.get(uuid) != null && homes.get(uuid).size() != 0) {
-            homes.get(uuid).add(this);
-        } else {
-            homes.put(uuid, new ArrayList<>(Arrays.asList(this)));
-        }
-    }
+        if(insert) {
+            //!SQL Injections are not possible here because the name of a Home object can't contain a space  
+            try {
+                HomeEssentials.getDatabase().updateStatement(
+                    "INSERT INTO Homes(uuid, name, x, y, z, yaw, pitch) VALUES('" + 
+                    uuid + "', '" + 
+                    name + "', " +
+                    location.getX() + ", " +
+                    location.getY() + ", " +
+                    location.getZ() + ", " +
+                    location.getYaw() + ", " +
+                    location.getPitch() + ");"
+                );
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-    public UUID getUuid() {
-        return this.uuid;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Location getLocation() {
-        return this.location;
-    }
-
-    public void setLocation(Location location) {
-        try {
-            HomeEssentials.getDatabase().createStatement(
-                "UPDATE Homes SET " + 
-                "x=" + location.getX() + ", " +
-                "y=" + location.getY() + ", " +
-                "z=" + location.getZ() + ", " +
-                "yaw=" + location.getYaw() + ", " +
-                "pitch=" + location.getPitch() + " " +
-                "WHERE uuid='" + this.uuid + "' " +
-                "AND name='" + this.name + "';"
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
+            Home.putHome(uuid, this); 
         }
         
-        this.location = new Location(
-            Worlds.OVERWORLD.getWorld(),
-            location.getX(), 
-            location.getY(),
-            location.getZ(),
-            location.getYaw(),
-            location.getPitch()
-        );
     }
 
     public static ArrayList<String> getHomeNames(Player player) {
@@ -123,6 +85,57 @@ public class Home {
         }
         
         return null;
+    }
+
+    public static void putHome(UUID uuid, Home home) {
+        if(homes.containsKey(uuid) && homes.get(uuid) != null && homes.get(uuid).size() != 0) {
+            homes.get(uuid).add(home);
+        } else {
+            homes.put(uuid, new ArrayList<>(Arrays.asList(home)));
+        }
+    }
+
+    public UUID getUuid() {
+        return this.uuid;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        try {
+            HomeEssentials.getDatabase().updateStatement(
+                "UPDATE Homes SET " + 
+                "x=" + location.getX() + ", " +
+                "y=" + location.getY() + ", " +
+                "z=" + location.getZ() + ", " +
+                "yaw=" + location.getYaw() + ", " +
+                "pitch=" + location.getPitch() + " " +
+                "WHERE uuid='" + this.uuid + "' " +
+                "AND name='" + this.name + "';"
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        this.location = new Location(
+            Worlds.OVERWORLD.getWorld(),
+            location.getX(), 
+            location.getY(),
+            location.getZ(),
+            location.getYaw(),
+            location.getPitch()
+        );
+    }
+
+    public void teleport() {
+        Player player = Bukkit.getPlayer(this.uuid);
+        player.teleport(this.location);
     }
 
 }

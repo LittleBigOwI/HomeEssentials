@@ -63,7 +63,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             ).send();
             
         } else {
-            home = new Home(player.getUniqueId(), name, location);
+            home = new Home(player.getUniqueId(), name, location, true);
             player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.COMMON.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
         }

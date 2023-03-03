@@ -1,7 +1,10 @@
 package net.philocraft;
 
+import java.sql.SQLException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.philocraft.commands.HomeCommand;
 import net.philocraft.commands.HomesCommand;
 import net.philocraft.commands.SethomeCommand;
 import net.philocraft.models.Database;
@@ -17,8 +20,15 @@ public final class HomeEssentials extends JavaPlugin {
     @Override
     public void onEnable() {
         database = Database.init(this);
+        
+        try {
+            database.loadHomes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         //!REGISTER COMMANDS
+        this.getCommand("home").setExecutor(new HomeCommand());
         this.getCommand("homes").setExecutor(new HomesCommand());
         this.getCommand("sethome").setExecutor(new SethomeCommand());
         
