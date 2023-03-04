@@ -12,8 +12,11 @@ import org.bukkit.entity.Player;
 
 import net.philocraft.components.WarningComponent;
 import net.philocraft.constants.Colors;
+import net.philocraft.constants.Worlds;
 import net.philocraft.errors.InvalidArgumentsException;
 import net.philocraft.errors.InvalidSenderException;
+import net.philocraft.errors.InvalidWorldException;
+import net.philocraft.errors.MaxHomesException;
 import net.philocraft.models.Home;
 
 public class SethomeCommand implements CommandExecutor, TabCompleter {
@@ -25,11 +28,16 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             return new InvalidSenderException("You need to be a player to use this command.").sendCause(sender);
         }
 
+        Player player = (Player) sender;
+
+        if(!player.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
+            return new InvalidWorldException("Homes are only available in the overword.").sendCause(sender);
+        }
+
         if(args.length != 1 && args.length != 2) {
             return new InvalidArgumentsException().sendCause(sender);
         }
 
-        Player player = (Player) sender;
         String name = args[0];
         Location location = player.getLocation();
 
@@ -39,6 +47,10 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
 
         if(Home.getHomeNames(player).contains(name)) {
             return new InvalidArgumentsException("You already have a home with that name.").sendCause(sender);
+        }
+
+        if(Home.getHomeNames(player).size() >= Home.getMaxHomes(player)) {
+            return new MaxHomesException().sendCause(sender);
         }
 
         Home home = Home.getHome(player.getUniqueId(), name);

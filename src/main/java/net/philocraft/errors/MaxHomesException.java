@@ -4,15 +4,15 @@ import org.bukkit.command.CommandSender;
 
 import net.philocraft.constants.Colors;
 
-public class InvalidWorldException {
+public class MaxHomesException {
     
     private String cause;
 
-    public InvalidWorldException() {
-        this.cause = Colors.FAILURE.getChatColor() + "You aren't in the right world.";
+    public MaxHomesException() {
+        this.cause = Colors.FAILURE.getChatColor() + "You have reached the maximum amount of homes.";
     }
 
-    public InvalidWorldException(String cause) {
+    public MaxHomesException(String cause) {
         this.cause = Colors.FAILURE.getChatColor() + cause;
     }
 

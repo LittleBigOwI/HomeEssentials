@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
 import net.philocraft.HomeEssentials;
@@ -93,6 +94,24 @@ public class Home {
         } else {
             homes.put(uuid, new ArrayList<>(Arrays.asList(home)));
         }
+    }
+
+    public static int getMaxHomes(Player player) {
+        int playtime = Math.round(player.getStatistic(Statistic.PLAY_ONE_MINUTE)/1200);
+        HashMap<Integer, Integer> rankHomes = HomeEssentials.getDatabase().getRankHomes();
+        
+        int maxHomes = 0; 
+        for(Integer maxHome : rankHomes.values()) {
+            if(maxHome > maxHomes) { maxHomes = maxHome; }
+        }
+        
+        for(Integer homePlayTime : rankHomes.keySet()) {
+            if(playtime <= homePlayTime && rankHomes.get(homePlayTime) < maxHomes) {
+                maxHomes = rankHomes.get(homePlayTime);
+            }
+        }
+        
+        return maxHomes;
     }
 
     public UUID getUuid() {

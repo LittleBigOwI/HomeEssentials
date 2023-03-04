@@ -1,6 +1,12 @@
+# Database credentials to store homes
 database:
   host: [DatabaseHost]
   database: [DatabaseName]
   user: [Username]
   password: [UserPassword]
 
+# The amount of time in minutes it will take to reach the next max home amount
+rankPlaytime: [500, 1000, 1500, 2000, 2500]
+
+# The max home amount for each playtime
+rankHomes: [1, 2, 3, 4, 5]
