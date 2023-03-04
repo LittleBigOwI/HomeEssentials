@@ -34,12 +34,12 @@ public final class HomeEssentials extends JavaPlugin {
         this.getCommand("homes").setExecutor(new HomesCommand());
         this.getCommand("sethome").setExecutor(new SethomeCommand());
         
-        this.getLogger().info("Plugin loaded");
+        this.getLogger().info("Plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        this.getLogger().info("Plugin unloaded");
+        this.getLogger().info("Plugin diabled.");
     }
 
 }
