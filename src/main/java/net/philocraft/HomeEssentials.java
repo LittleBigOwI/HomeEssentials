@@ -39,7 +39,7 @@ public final class HomeEssentials extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.getLogger().info("Plugin diabled.");
+        this.getLogger().info("Plugin disabled.");
     }
 
 }
