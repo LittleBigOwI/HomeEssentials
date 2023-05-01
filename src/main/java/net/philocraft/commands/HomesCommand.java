@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import net.philocraft.constants.Colors;
+import dev.littlebigowl.api.constants.Colors;
+import dev.littlebigowl.api.errors.InvalidArgumentsException;
+import dev.littlebigowl.api.errors.InvalidSenderException;
 import net.philocraft.errors.HomeNotFoundException;
-import net.philocraft.errors.InvalidArgumentsException;
-import net.philocraft.errors.InvalidSenderException;
 import net.philocraft.models.Home;
 
 public class HomesCommand implements CommandExecutor, TabCompleter {
@@ -36,16 +36,16 @@ public class HomesCommand implements CommandExecutor, TabCompleter {
         }
 
         StringBuffer message = new StringBuffer(
-            Colors.COMMON.getChatColor() + "You have "  + 
-            Colors.HIGHTLIGHT.getChatColor() + homeNames.size() + 
-            Colors.COMMON.getChatColor() + " homes :\n" +
+            Colors.INFO.getChatColor() + "You have "  + 
+            Colors.MAJOR.getChatColor() + homeNames.size() + 
+            Colors.INFO.getChatColor() + " homes :\n" +
             Colors.WARNING.getChatColor()
         );
 
         for(int i = 0; i < homeNames.size(); i++) {
             message.append(homeNames.get(i));
             if(i != homeNames.size()-1) {
-                message.append(Colors.OBFUSCATE.getChatColor() + ", " + Colors.WARNING.getChatColor());
+                message.append(Colors.MINOR.getChatColor() + ", " + Colors.WARNING.getChatColor());
             }
         }
 

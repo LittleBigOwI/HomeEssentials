@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import net.philocraft.components.WarningComponent;
-import net.philocraft.constants.Colors;
+import dev.littlebigowl.api.components.WarningComponent;
+import dev.littlebigowl.api.constants.Colors;
+import dev.littlebigowl.api.errors.InvalidArgumentsException;
+import dev.littlebigowl.api.errors.InvalidSenderException;
 import net.philocraft.errors.HomeNotFoundException;
-import net.philocraft.errors.InvalidArgumentsException;
-import net.philocraft.errors.InvalidSenderException;
 import net.philocraft.models.Home;
 
 public class DelhomeCommand implements CommandExecutor, TabCompleter {
@@ -39,7 +39,7 @@ public class DelhomeCommand implements CommandExecutor, TabCompleter {
         if(args.length == 2) {
             if(args[1].equals("confirm")) {
                 home.delete();
-                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully deleted your " + Colors.COMMON.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully deleted your " + Colors.INFO.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
             } else if(args[1].equals("cancel")) {
                 player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully canceled deletion.");

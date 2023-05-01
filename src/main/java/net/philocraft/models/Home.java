@@ -8,11 +8,10 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
+import dev.littlebigowl.api.constants.Worlds;
 import net.philocraft.HomeEssentials;
-import net.philocraft.constants.Worlds;
 
 public class Home {
 
@@ -38,7 +37,7 @@ public class Home {
         if(insert) {
             //!SQL Injections are not possible here because the name of a Home object can't contain a space  
             try {
-                HomeEssentials.getDatabase().updateStatement(
+                HomeEssentials.api.database.update(
                     "INSERT INTO Homes(uuid, name, x, y, z, yaw, pitch) VALUES('" + 
                     uuid + "', '" + 
                     name + "', " +
@@ -97,21 +96,7 @@ public class Home {
     }
 
     public static int getMaxHomes(Player player) {
-        int playtime = Math.round(player.getStatistic(Statistic.PLAY_ONE_MINUTE)/1200);
-        HashMap<Integer, Integer> rankHomes = HomeEssentials.getDatabase().getRankHomes();
-        
-        int maxHomes = 0; 
-        for(Integer maxHome : rankHomes.values()) {
-            if(maxHome > maxHomes) { maxHomes = maxHome; }
-        }
-        
-        for(Integer homePlayTime : rankHomes.keySet()) {
-            if(playtime <= homePlayTime && rankHomes.get(homePlayTime) < maxHomes) {
-                maxHomes = rankHomes.get(homePlayTime);
-            }
-        }
-        
-        return maxHomes;
+        return HomeEssentials.api.scoreboard.getEssentialsTeam(player).getMaxHomes();
     }
 
     public UUID getUuid() {
@@ -128,7 +113,7 @@ public class Home {
 
     public void setLocation(Location location) {
         try {
-            HomeEssentials.getDatabase().updateStatement(
+            HomeEssentials.api.database.update(
                 "UPDATE Homes SET " + 
                 "x=" + location.getX() + ", " +
                 "y=" + location.getY() + ", " +
@@ -159,7 +144,7 @@ public class Home {
 
     public void delete() {
         try {
-            HomeEssentials.getDatabase().updateStatement(
+            HomeEssentials.api.database.update(
                 "DELETE FROM Homes WHERE " +
                 "uuid='" + this.uuid + "' AND " +
                 "name ='" + this.name + "';"

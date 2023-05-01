@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.philocraft</groupId>
   <artifactId>HomeEssentials</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -46,6 +46,12 @@
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
       <version>1.19.3-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.littlebigowl.api</groupId>
+      <artifactId>essentials-api</artifactId>
+      <version>1.0.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

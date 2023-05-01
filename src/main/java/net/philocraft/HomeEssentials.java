@@ -2,30 +2,41 @@ package net.philocraft;
 
 import java.sql.SQLException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import dev.littlebigowl.api.EssentialsAPI;
 import net.philocraft.commands.DelhomeCommand;
 import net.philocraft.commands.HomeCommand;
 import net.philocraft.commands.HomesCommand;
 import net.philocraft.commands.SethomeCommand;
-import net.philocraft.models.Database;
+import net.philocraft.utils.DatabaseUtil;
 
 public final class HomeEssentials extends JavaPlugin {
 
-    private static Database database;
-
-    public static Database getDatabase() {
-        return database;
-    }
+    public static final EssentialsAPI api = (EssentialsAPI) Bukkit.getServer().getPluginManager().getPlugin("EssentialsAPI");
     
+    private static HomeEssentials plugin;
+
+    public static HomeEssentials getPlugin() {
+        return plugin;
+    }
+
     @Override
     public void onEnable() {
-        database = Database.init(this);
         
-        try {
-            database.loadHomes();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        plugin = this;
+        
+        if(api == null) {
+            this.getLogger().severe("Couldn't find API.");
+        } else {
+            
+            try {
+                DatabaseUtil.loadHomes();
+            } catch (SQLException e) {
+                this.getLogger().severe("Couldn't load homes from database : " + e.getMessage());
+            }
+
         }
 
         //!REGISTER COMMANDS
