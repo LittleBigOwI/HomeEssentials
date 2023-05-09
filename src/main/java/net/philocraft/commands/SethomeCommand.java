@@ -49,7 +49,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             return new InvalidArgumentsException("You already have a home with that name.").sendCause(sender);
         }
 
-        if(Home.getHomeNames(player).size() >= Home.getMaxHomes(player)) {
+        if(Home.getHomeNames(player).size() >= Home.getMaxHomes(player) && Home.getMaxHomes(player) != -1) {
             return new MaxHomesException().sendCause(sender);
         }
 
