@@ -37,7 +37,7 @@ public class HomesCommand implements CommandExecutor, TabCompleter {
 
         StringBuffer message = new StringBuffer(
             Colors.INFO.getChatColor() + "You have "  + 
-            Colors.MAJOR.getChatColor() + homeNames.size() + 
+            Colors.INFO_DARK.getChatColor() + homeNames.size() + 
             Colors.INFO.getChatColor() + " homes :\n" +
             Colors.WARNING.getChatColor()
         );
@@ -46,7 +46,7 @@ public class HomesCommand implements CommandExecutor, TabCompleter {
             if(i%2 == 0) {
                 message.append(Colors.WARNING.getChatColor());
             } else {
-                message.append(Colors.POPUP.getChatColor());
+                message.append(Colors.WARNING_DARK.getChatColor());
             }
            
             message.append(homeNames.get(i));

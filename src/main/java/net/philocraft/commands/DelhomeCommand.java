@@ -39,7 +39,7 @@ public class DelhomeCommand implements CommandExecutor, TabCompleter {
         if(args.length == 2) {
             if(args[1].equals("confirm")) {
                 home.delete();
-                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully deleted your " + Colors.INFO.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully deleted your " + Colors.SUCCESS_DARK.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
             } else if(args[1].equals("cancel")) {
                 player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully canceled deletion.");

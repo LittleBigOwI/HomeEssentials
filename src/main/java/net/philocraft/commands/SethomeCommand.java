@@ -54,7 +54,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
         if(home != null && args.length == 2) {
             if(args[1].equals("override")) {
                 home.setLocation(location);
-                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully overridden your " + Colors.INFO.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+                player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully overridden your " + Colors.SUCCESS_DARK.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
             } else if(args[1].equals("cancel")) {
                 player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully canceled override.");
@@ -73,7 +73,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             
         } else {
             home = new Home(player.getUniqueId(), name, location, true);
-            player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.INFO.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
+            player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.SUCCESS_DARK.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 
         }
         return true;
