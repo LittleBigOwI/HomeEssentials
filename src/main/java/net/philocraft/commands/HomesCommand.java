@@ -43,9 +43,16 @@ public class HomesCommand implements CommandExecutor, TabCompleter {
         );
 
         for(int i = 0; i < homeNames.size(); i++) {
+            if(i%2 == 0) {
+                message.append(Colors.WARNING.getChatColor());
+            } else {
+                message.append(Colors.POPUP.getChatColor());
+            }
+           
             message.append(homeNames.get(i));
+            
             if(i != homeNames.size()-1) {
-                message.append(Colors.MINOR.getChatColor() + ", " + Colors.WARNING.getChatColor());
+                message.append(Colors.MINOR.getChatColor() + ", ");
             }
         }
 
