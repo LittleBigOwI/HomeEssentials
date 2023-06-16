@@ -187,7 +187,7 @@ public class Home {
         POIMarker marker = POIMarker.builder()
             .label(this.getName())
             .minDistance(0.0)
-            .maxDistance(2500)
+            .maxDistance(3300)
             .position(this.location.getX(), this.location.getY(), this.location.getZ())
             .build();
 
@@ -199,12 +199,12 @@ public class Home {
                 marker.setIcon(icon, new Vector2i(12, 24));
 
                 if(map.getMarkerSets().get("Homes") != null) {
-                    map.getMarkerSets().get("Homes").put(this.getName(), marker);
+                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUuid(), marker);
 
                 } else {
                     MarkerSet markerSet = MarkerSet.builder().label("Homes").build();
                     map.getMarkerSets().put("Homes", markerSet);
-                    map.getMarkerSets().get("Homes").put(this.getName(), marker);
+                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUuid(), marker);
 
                 }
             }
