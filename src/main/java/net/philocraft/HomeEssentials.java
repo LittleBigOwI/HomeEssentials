@@ -5,16 +5,18 @@ import java.sql.SQLException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.bluecolored.bluemap.api.BlueMapAPI;
 import dev.littlebigowl.api.EssentialsAPI;
 import net.philocraft.commands.DelhomeCommand;
 import net.philocraft.commands.HomeCommand;
 import net.philocraft.commands.HomesCommand;
 import net.philocraft.commands.SethomeCommand;
-import net.philocraft.utils.DatabaseUtil;
+import net.philocraft.utils.HomeUtil;
 
 public final class HomeEssentials extends JavaPlugin {
 
     public static final EssentialsAPI api = (EssentialsAPI) Bukkit.getServer().getPluginManager().getPlugin("EssentialsAPI");
+    public static BlueMapAPI blueMap;
     
     private static HomeEssentials plugin;
 
@@ -24,20 +26,24 @@ public final class HomeEssentials extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        BlueMapAPI.onEnable(bluemap -> {
+            blueMap = bluemap;
+            this.getLogger().info("Loaded BlueMapAPI.");
+
+            if(api == null) {
+                this.getLogger().severe("Couldn't find API.");
+
+            } else {
+                try {
+                    HomeUtil.loadHomes();
+                } catch (SQLException e) {
+                    this.getLogger().severe("Couldn't load homes from database : " + e.getMessage());
+                }
+            }
+        });
         
         plugin = this;
-        
-        if(api == null) {
-            this.getLogger().severe("Couldn't find API.");
-        } else {
-            
-            try {
-                DatabaseUtil.loadHomes();
-            } catch (SQLException e) {
-                this.getLogger().severe("Couldn't load homes from database : " + e.getMessage());
-            }
-
-        }
 
         //!REGISTER COMMANDS
         this.getCommand("delhome").setExecutor(new DelhomeCommand());

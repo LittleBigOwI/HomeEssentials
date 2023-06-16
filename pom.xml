@@ -23,6 +23,10 @@
 
   <repositories>
     <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+    <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
@@ -52,6 +56,13 @@
       <groupId>dev.littlebigowl.api</groupId>
       <artifactId>essentials-api</artifactId>
       <version>1.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.BlueMap-Minecraft</groupId>
+      <artifactId>BlueMapAPI</artifactId>
+      <version>v2.4.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

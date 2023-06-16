@@ -10,7 +10,7 @@ import dev.littlebigowl.api.constants.Worlds;
 import net.philocraft.HomeEssentials;
 import net.philocraft.models.Home;
 
-public class DatabaseUtil {
+public class HomeUtil {
     
     public static void loadHomes() throws SQLException {
 
@@ -48,5 +48,4 @@ public class DatabaseUtil {
 
         HomeEssentials.getPlugin().getLogger().info("Loaded " + count + " homes.");
     }
-
 }

@@ -10,6 +10,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.flowpowered.math.vector.Vector2i;
+
+import de.bluecolored.bluemap.api.AssetStorage;
+import de.bluecolored.bluemap.api.BlueMapMap;
+import de.bluecolored.bluemap.api.markers.MarkerSet;
+import de.bluecolored.bluemap.api.markers.POIMarker;
 import dev.littlebigowl.api.constants.Worlds;
 import net.philocraft.HomeEssentials;
 
@@ -53,7 +59,8 @@ public class Home {
 
             Home.putHome(uuid, this); 
         }
-        
+
+        this.draw();
     }
 
     public static ArrayList<String> getHomeNames(Player player) {
@@ -97,6 +104,18 @@ public class Home {
 
     public static int getMaxHomes(Player player) {
         return HomeEssentials.api.scoreboard.getEssentialsTeam(player).getMaxHomes();
+    }
+
+    public static ArrayList<Home> getHomes() {
+        ArrayList<Home> allHomes = new ArrayList<>();
+
+        for(ArrayList<Home> playerHomes : homes.values()) {
+            for(Home home : playerHomes) {
+                allHomes.add(home);
+            }
+        }
+
+        return allHomes;
     }
 
     public UUID getUuid() {
@@ -143,6 +162,7 @@ public class Home {
     }
 
     public void delete() {
+        this.erase();
         try {
             HomeEssentials.api.database.update(
                 "DELETE FROM Homes WHERE " +
@@ -160,6 +180,43 @@ public class Home {
             }
         }
 
+    }
+
+    public void draw() {
+
+        POIMarker marker = POIMarker.builder()
+            .label(this.getName())
+            .minDistance(0.0)
+            .maxDistance(2500)
+            .position(this.location.getX(), this.location.getY(), this.location.getZ())
+            .build();
+
+        HomeEssentials.blueMap.getWorld("world").ifPresent(world -> {
+            for(BlueMapMap map : world.getMaps()) {
+                AssetStorage assetStorage = map.getAssetStorage();
+                String icon = assetStorage.getAssetUrl("markericons/home.png");
+
+                marker.setIcon(icon, new Vector2i(12, 24));
+
+                if(map.getMarkerSets().get("Homes") != null) {
+                    map.getMarkerSets().get("Homes").put(this.getName(), marker);
+
+                } else {
+                    MarkerSet markerSet = MarkerSet.builder().label("Homes").build();
+                    map.getMarkerSets().put("Homes", markerSet);
+                    map.getMarkerSets().get("Homes").put(this.getName(), marker);
+
+                }
+            }
+        });
+    }
+
+    public void erase() {
+        HomeEssentials.blueMap.getWorld("world").ifPresent(world -> {
+            for(BlueMapMap map : world.getMaps()) {         
+                map.getMarkerSets().get("Homes").remove(this.getName());
+            }
+        });
     }
 
 }
