@@ -118,7 +118,7 @@ public class Home {
         return allHomes;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return this.uuid;
     }
 
@@ -184,8 +184,18 @@ public class Home {
 
     public void draw() {
 
+        UUID uuid = this.getUUID();
+        String playerName;
+
+        if(Bukkit.getPlayer(uuid) != null) {
+            playerName = Bukkit.getPlayer(uuid).getName();
+        } else {
+            playerName = Bukkit.getOfflinePlayer(uuid).getName();
+        }
+
         POIMarker marker = POIMarker.builder()
             .label(this.getName())
+            .detail("<div style=\"text-align: center\">" + this.getName() + "</div>" + "(" + playerName + ")")
             .minDistance(0.0)
             .maxDistance(3300)
             .position(this.location.getX(), this.location.getY(), this.location.getZ())
@@ -199,12 +209,12 @@ public class Home {
                 marker.setIcon(icon, new Vector2i(12, 24));
 
                 if(map.getMarkerSets().get("Homes") != null) {
-                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUuid(), marker);
+                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUUID(), marker);
 
                 } else {
                     MarkerSet markerSet = MarkerSet.builder().label("Homes").build();
                     map.getMarkerSets().put("Homes", markerSet);
-                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUuid(), marker);
+                    map.getMarkerSets().get("Homes").put(this.getName() + "-" + this.getUUID(), marker);
 
                 }
             }
