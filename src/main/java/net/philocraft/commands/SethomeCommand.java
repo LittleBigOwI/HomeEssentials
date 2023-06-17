@@ -31,7 +31,7 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if(!player.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
-            return new InvalidWorldException("Homes are only available in the overword.").sendCause(sender);
+            return new InvalidWorldException("Homes are only available in the overworld.").sendCause(sender);
         }
 
         if(args.length != 1 && args.length != 2) {
@@ -43,10 +43,6 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
 
         if(name.contains("'") || name.contains("\\") || name.contains("\"")) {
             return new InvalidArgumentsException("Home names can't contain \\, ' or \" characters.").sendCause(sender);
-        }
-
-        if(Home.getHomeNames(player).size() >= Home.getMaxHomes(player) && Home.getMaxHomes(player) != -1) {
-            return new MaxHomesException().sendCause(sender);
         }
 
         Home home = Home.getHome(player.getUniqueId(), name);
@@ -72,6 +68,10 @@ public class SethomeCommand implements CommandExecutor, TabCompleter {
             ).send();
             
         } else {
+            if(Home.getHomeNames(player).size() >= Home.getMaxHomes(player) && Home.getMaxHomes(player) != -1) {
+                return new MaxHomesException().sendCause(sender);
+            }
+
             home = new Home(player.getUniqueId(), name, location, true);
             player.sendMessage(Colors.SUCCESS.getChatColor() + "Successfully created new " + Colors.SUCCESS_DARK.getChatColor() + home.getName() + Colors.SUCCESS.getChatColor() + " home.");
 

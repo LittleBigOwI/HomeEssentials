@@ -9,8 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import dev.littlebigowl.api.constants.Worlds;
 import dev.littlebigowl.api.errors.InvalidArgumentsException;
 import dev.littlebigowl.api.errors.InvalidSenderException;
+import dev.littlebigowl.api.errors.InvalidWorldException;
 import net.philocraft.errors.HomeNotFoundException;
 import net.philocraft.models.Home;
 
@@ -38,6 +40,10 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
 
         if(home == null) {
             return new HomeNotFoundException().sendCause(sender);
+        }
+
+        if(!player.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
+            return new InvalidWorldException("Homes are only available in the overworld.").sendCause(sender);
         }
 
         home.teleport();
