@@ -23,12 +23,18 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
             return new InvalidSenderException("You need to be a player to use this command.").sendCause(sender);
         }
 
-        if(args.length != 1) {
+        if(args.length > 1) {
             return new InvalidArgumentsException().sendCause(sender);
         }
 
         Player player = (Player)sender;
-        Home home = Home.getHome(player.getUniqueId(), args[0]);
+
+        Home home;
+        if(args.length == 1) {
+            home = Home.getHome(player.getUniqueId(), args[0]);
+        } else {
+            home = Home.getHome(player.getUniqueId(), "home");
+        }
 
         if(home == null) {
             return new HomeNotFoundException().sendCause(sender);
