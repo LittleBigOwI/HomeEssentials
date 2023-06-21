@@ -131,6 +131,7 @@ public class Home {
     }
 
     public void setLocation(Location location) {
+        this.erase();
         try {
             HomeEssentials.api.database.update(
                 "UPDATE Homes SET " + 
@@ -154,6 +155,7 @@ public class Home {
             location.getYaw(),
             location.getPitch()
         );
+        this.draw();
     }
 
     public void teleport() {
@@ -162,7 +164,6 @@ public class Home {
     }
 
     public void delete() {
-        this.erase();
         try {
             HomeEssentials.api.database.update(
                 "DELETE FROM Homes WHERE " +
@@ -179,7 +180,7 @@ public class Home {
                 playerHomes.remove(i);
             }
         }
-
+        this.erase();
     }
 
     public void draw() {
