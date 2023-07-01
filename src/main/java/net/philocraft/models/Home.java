@@ -225,7 +225,7 @@ public class Home {
     public void erase() {
         HomeEssentials.blueMap.getWorld("world").ifPresent(world -> {
             for(BlueMapMap map : world.getMaps()) {         
-                map.getMarkerSets().get("Homes").remove(this.getName());
+                map.getMarkerSets().get("Homes").remove(this.getName() + "-" + this.getUUID());
             }
         });
     }
